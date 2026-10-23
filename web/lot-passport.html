@@ -1,0 +1,211 @@
+<title>Arikina Lot Passport</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow "document" column, like a lot certificate - header band, spec grid, custody ledger, document check, chain proof */
+:root {
+  --bg: #F2F3F6;
+  --paper: #FFFFFF;
+  --ink: #1C2438;
+  --muted: #5B6377;
+  --rule: #DADDE5;
+  --gold: #A9771F;
+  --gold-soft: #F3E7CC;
+  --band: #1F2A44;
+  --band-ink: #F2EBDD;
+  --ok: #2F7D4F;
+  --ok-soft: #DDF0E3;
+  --bad: #B23B2E;
+  --bad-soft: #F7E0DC;
+  --display: "Young Serif", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0F141E; --paper: #171E2C; --ink: #E7E9EF; --muted: #9AA2B4; --rule: #2A3346;
+  --gold: #E2B75E; --gold-soft: #3A3020; --band: #0A0E16; --band-ink: #F2EBDD;
+  --ok: #6CC48F; --ok-soft: #173325; --bad: #F08A7C; --bad-soft: #3B1F1B; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0F141E; --paper: #171E2C; --ink: #E7E9EF; --muted: #9AA2B4; --rule: #2A3346;
+  --gold: #E2B75E; --gold-soft: #3A3020; --band: #0A0E16; --band-ink: #F2EBDD;
+  --ok: #6CC48F; --ok-soft: #173325; --bad: #F08A7C; --bad-soft: #3B1F1B; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 48px; display: grid; gap: 20px; }
+.band { background: var(--band); color: var(--band-ink); border-radius: 6px; padding: 22px 22px 20px; display: grid; gap: 14px; position: relative; overflow: hidden; }
+.band::after { content: ""; position: absolute; inset: auto -40px -60px auto; width: 220px; height: 220px; border-radius: 50%; border: 1px solid rgba(226,183,94,.25); box-shadow: 0 0 0 18px rgba(226,183,94,.06), 0 0 0 40px rgba(226,183,94,.04); pointer-events: none; }
+.brand { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.brand b { font-family: var(--display); font-weight: 400; letter-spacing: .04em; font-size: 18px; text-transform: none; }
+.live { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; letter-spacing: .08em; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(242,235,221,.3); }
+.live i { width: 7px; height: 7px; border-radius: 50%; background: #9AA2B4; }
+.live.on i { background: #6CC48F; box-shadow: 0 0 0 3px rgba(108,196,143,.25); }
+.lotcode { font-family: var(--mono); font-size: clamp(26px, 6vw, 40px); font-weight: 500; letter-spacing: .02em; line-height: 1.1; color: #E2B75E; overflow-wrap: anywhere; }
+.product { font-family: var(--display); font-size: clamp(22px, 4.5vw, 30px); line-height: 1.15; text-wrap: balance; }
+.sub { color: rgba(242,235,221,.75); font-size: 14px; }
+.card { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 20px; display: grid; gap: 14px; min-width: 0; }
+h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 20px; text-wrap: balance; }
+.eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; border-top: 1px solid var(--rule); }
+.spec { padding: 10px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; padding-right: 12px; min-width: 0; }
+.spec dt { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.spec dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+.pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 999px; }
+.pill.s0 { background: var(--ok-soft); color: var(--ok); }
+.pill.s1 { background: var(--gold-soft); color: var(--gold); }
+.pill.s2, .pill.s3 { background: var(--bad-soft); color: var(--bad); }
+ol.ledger { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
+ol.ledger li { counter-increment: step; display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding-bottom: 16px; position: relative; }
+ol.ledger li::before { content: counter(step); width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--gold); color: var(--gold); display: grid; place-items: center; font-family: var(--mono); font-size: 12px; background: var(--paper); z-index: 1; }
+ol.ledger li:not(:last-child)::after { content: ""; position: absolute; left: 14px; top: 28px; bottom: 0; width: 1.5px; background: var(--rule); }
+.step-h { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.step-h strong { font-weight: 600; }
+.meta { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.note { margin-top: 2px; }
+.doc { display: grid; gap: 8px; padding: 14px; border: 1px solid var(--rule); border-radius: 6px; }
+.hash { font-family: var(--mono); font-size: 12.5px; overflow-wrap: anywhere; color: var(--muted); }
+.drop { border: 1.5px dashed var(--rule); border-radius: 6px; padding: 18px; text-align: center; display: grid; gap: 8px; justify-items: center; transition: border-color .15s, background .15s; }
+.drop.over { border-color: var(--gold); background: var(--gold-soft); }
+.drop label { cursor: pointer; font-weight: 600; color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+.drop label:focus-within { outline: 2px solid var(--gold); outline-offset: 3px; }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.result { padding: 12px 14px; border-radius: 6px; font-weight: 500; }
+.result.ok { background: var(--ok-soft); color: var(--ok); }
+.result.bad { background: var(--bad-soft); color: var(--bad); }
+.proof { display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; min-width: 0; }
+.row span:first-child { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12.5px; overflow-wrap: anywhere; min-width: 0; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-block; padding: 8px 14px; border-radius: 6px; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; font-weight: 500; font-size: 14px; background: transparent; cursor: pointer; font-family: inherit; }
+.btn:hover, .btn:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
+.foot { font-size: 12.5px; color: var(--muted); display: grid; gap: 6px; }
+.copyable { font-family: var(--mono); user-select: all; }
+@media (max-width: 480px) { .row { grid-template-columns: 1fr; gap: 0; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="band">
+    <div class="brand"><b>Arikina</b><span class="live" id="live"><i></i><span id="liveText">Snapshot</span></span></div>
+    <div>
+      <div class="eyebrow" style="color:rgba(242,235,221,.7)">Lot passport &middot; verified on the Sui blockchain</div>
+      <div class="lotcode" id="lotCode">&nbsp;</div>
+    </div>
+    <div class="product" id="product">&nbsp;</div>
+    <div class="sub" id="inci">&nbsp;</div>
+  </header>
+
+  <section class="card" aria-labelledby="h-spec">
+    <h2 id="h-spec">Lot record</h2>
+    <dl class="specs" id="specs"></dl>
+  </section>
+
+  <section class="card" aria-labelledby="h-custody">
+    <div><h2 id="h-custody">Chain of custody</h2><div class="meta">Each step is written to the blockchain and cannot be edited afterwards.</div></div>
+    <ol class="ledger" id="ledger"></ol>
+  </section>
+
+  <section class="card" aria-labelledby="h-docs">
+    <div><h2 id="h-docs">Documents</h2><div class="meta">The blockchain stores each document's SHA-256 fingerprint. Check the file you received against it; any change to the file changes the fingerprint.</div></div>
+    <div id="docs" style="display:grid;gap:10px"></div>
+    <div class="drop" id="drop">
+      <div>Drop the COA you received here, or <label>choose a file<input type="file" id="file"></label></div>
+      <div class="meta">The file is checked in your browser and never uploaded.</div>
+    </div>
+    <div id="result" class="result" hidden></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-proof">
+    <h2 id="h-proof">On-chain proof</h2>
+    <div class="proof" id="proof"></div>
+    <div class="links" id="links"></div>
+  </section>
+
+  <footer class="foot">
+    <div>Documents and samples: <span class="copyable">sales@arikina.com</span></div>
+    <div id="netNote"></div>
+  </footer>
+</div>
+
+<script>
+const SNAPSHOT = {"version": 1064177598, "asMoveObject": {"contents": {"json": {"id": "0x8b4cf749d42b5d5bfda05675eec36e25921a097399829e2d23a263749d8558cd", "lot_code": "SUN/O/26E189", "product": "Organic Castor Oil", "inci": "Ricinus Communis (Castor) Seed Oil", "origin": "India", "process": "Cold pressed", "mfg": "2026-01", "exp": "2027-12", "certifications": ["Certified Organic (TC issued per shipment)"], "documents": [{"kind": "COA", "sha256": "13722d5f77757dba388b91a3302aae273c4e1d7f020a411c4b426bdedd6687a4", "uri": "Available on request: sales@arikina.com", "added_ms": "1792787269782"}], "custody": [{"stage": "Pressed", "location": "India", "handler": "Arikina", "note": "Cold pressed; MFG Jan 2026 per COA", "recorded_ms": "1792787275807"}, {"stage": "QC tested", "location": "India", "handler": "Arikina", "note": "COA issued: physico-chemical, microbiology (Salmonella/E. coli absent) and heavy metals (As, Cd, Hg, Pb) within spec", "recorded_ms": "1792787278873"}, {"stage": "Released for sale", "location": "USA", "handler": "Arikina", "note": "Offered by Arikina; sample bottle to multi-drum programs", "recorded_ms": "1792787286024"}], "status": 0, "created_ms": "1792787264853"}}}};
+const META = {"lot": "0x8b4cf749d42b5d5bfda05675eec36e25921a097399829e2d23a263749d8558cd", "network": "testnet", "package": "0xb7253dc545c4e0aac4b99b83c3d75b21c3e69dc6089a5e83c7827d4b03ad66f1", "snapshot_at": "2026-10-23T20:29:40.694238+00:00"};
+const STATUS = ["Active", "On hold", "Recalled", "Depleted"];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmtTime = (ms) => new Date(Number(ms)).toLocaleString(undefined, { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+const fmtMonth = (ym) => { const [y, m] = String(ym).split("-"); return m ? new Date(+y, +m - 1, 1).toLocaleString(undefined, { month: "short", year: "numeric" }) : ym; };
+
+function render(obj, live) {
+  const j = obj.asMoveObject.contents.json;
+  $("lotCode").textContent = j.lot_code;
+  $("product").textContent = j.product;
+  $("inci").textContent = "INCI: " + j.inci;
+  $("live").classList.toggle("on", live);
+  $("liveText").textContent = live ? "Live from chain" : "Snapshot " + new Date(META.snapshot_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+
+  const specs = [
+    ["Origin", j.origin], ["Process", j.process],
+    ["Manufactured", fmtMonth(j.mfg)], ["Best before", fmtMonth(j.exp)],
+    ["Certifications", (j.certifications || []).join(", ")],
+    ["Status", `<span class="pill s${j.status}">${STATUS[j.status] || "Unknown"}</span>`],
+  ];
+  $("specs").innerHTML = specs.map(([k, v]) => `<div class="spec"><dt>${k}</dt><dd>${k === "Status" ? v : esc(v)}</dd></div>`).join("");
+
+  $("ledger").innerHTML = (j.custody || []).map((c) => `
+    <li><div></div><div>
+      <div class="step-h"><strong>${esc(c.stage)}</strong><span class="meta">${esc(c.location)} &middot; ${esc(c.handler)}</span></div>
+      <div class="note">${esc(c.note)}</div>
+      <div class="meta">Recorded ${fmtTime(c.recorded_ms)}</div>
+    </div></li>`).join("") || `<li><div></div><div class="meta">No custody steps recorded yet.</div></li>`;
+
+  $("docs").innerHTML = (j.documents || []).map((d) => `
+    <div class="doc"><div class="step-h"><strong>${esc(d.kind)}</strong><span class="meta">added ${fmtTime(d.added_ms)}</span></div>
+    <div class="hash">SHA-256 ${esc(d.sha256)}</div><div class="meta">${esc(d.uri)}</div></div>`).join("");
+  window.__docs = j.documents || [];
+
+  const rows = [["Network", "Sui " + META.network], ["Object ID", j.id], ["Version", obj.version], ["Contract", META.package]];
+  $("proof").innerHTML = rows.map(([k, v]) => `<div class="row"><span>${k}</span><code>${esc(v)}</code></div>`).join("");
+  const n = META.network;
+  $("links").innerHTML = `
+    <a class="btn" href="https://suiscan.xyz/${n}/object/${j.id}" target="_blank" rel="noopener">View on Suiscan</a>
+    <a class="btn" href="https://${n}.suivision.xyz/object/${j.id}" target="_blank" rel="noopener">View on SuiVision</a>`;
+  $("netNote").textContent = n === "testnet"
+    ? "Prototype on Sui testnet. A production passport would run on Sui mainnet."
+    : "Recorded on Sui mainnet.";
+}
+
+async function refresh() {
+  try {
+    const q = `{ object(address:"${META.lot}"){ version asMoveObject{ contents{ json } } } }`;
+    const r = await fetch(`https://graphql.${META.network}.sui.io/graphql`, {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: q }),
+    });
+    const d = await r.json();
+    if (d?.data?.object?.asMoveObject) render(d.data.object, true);
+  } catch (e) { /* sandboxed or offline: the snapshot stays on screen */ }
+}
+
+async function checkFile(file) {
+  const buf = await file.arrayBuffer();
+  const hex = [...new Uint8Array(await crypto.subtle.digest("SHA-256", buf))].map((b) => b.toString(16).padStart(2, "0")).join("");
+  const hit = (window.__docs || []).find((d) => d.sha256.toLowerCase() === hex);
+  const el = $("result");
+  el.hidden = false;
+  el.className = "result " + (hit ? "ok" : "bad");
+  el.innerHTML = hit
+    ? `Match. <strong>${esc(file.name)}</strong> is the exact ${esc(hit.kind)} recorded for this lot.`
+    : `No match. <strong>${esc(file.name)}</strong> is not the document recorded for this lot (fingerprint ${hex.slice(0, 16)}&hellip;). Contact sales@arikina.com.`;
+}
+
+const drop = $("drop");
+["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", (e) => { const f = e.dataTransfer.files[0]; if (f) checkFile(f); });
+$("file").addEventListener("change", (e) => { const f = e.target.files[0]; if (f) checkFile(f); });
+
+render(SNAPSHOT, false);
+refresh();
+</script>
